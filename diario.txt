@@ -23,3 +23,8 @@
 	adrcre@PC02:~$ git config --global user.name adrilc24
 	adrcre@PC02:~$ git config --global user.email adrilc24@gmail.com
 
+	Para añadir git: git add (archivo) 
+			 git status 
+			 git commit -m "Mensaje"
+			 git push
+
