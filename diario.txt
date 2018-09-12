@@ -1,0 +1,25 @@
+20180911
+	sudo update-pc
+	instalados monodevelop y prerequisitos android-studio
+	bitnami.com descargamos lamp
+	procedemos a su instalación
+	contraseña lamp: sistemas	
+	ejecutamos el lamp (open phMyAdmin), usuario root y creamos db de prueba
+	en dbprueba crear tabla categoria
+
+20180912
+	crear categoria mediante ddl
+	configurar git
+
+	create table categoria (
+	id serial primary key,
+	nombre varchar(50) not null unique
+	);
+
+	insert into categoria (nombre) values ('categoría 1');
+	insert into categoria (nombre) values ('categoría 2');
+	insert into categoria (nombre) values ('categoría 3');
+
+	adrcre@PC02:~$ git config --global user.name adrilc24
+	adrcre@PC02:~$ git config --global user.email adrilc24@gmail.com
+
