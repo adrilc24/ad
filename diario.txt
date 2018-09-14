@@ -28,3 +28,12 @@
 			 git commit -m "Mensaje"
 			 git push
 
+20180914
+	Propuesta de instalar ubuntu 16.04 en VirtualBox, e instalar monodevelop.
+	Descarga del "conector" de mysql para .net desde la página oficial.
+	
+	Al intentar conectar da error. Para solucionarlo haremos lo siquiente.
+	En bitnami, vamos a la config de MySql y comentamos la linea "# skip-name-resolve=1",
+	luego el string para conectar al server debe ser tal que:
+	"server = localhost;database=dbprueba;user=root;password=sistemas;sslmode=none"
+
