@@ -12,6 +12,7 @@ public partial class MainWindow : Gtk.Window
     public MainWindow() : base(Gtk.WindowType.Toplevel)
     {
         Build();
+		new CategoriaWindow();
 
 		dbConnection = new MySqlConnection(
                 "server = localhost;database=dbprueba;user=root;password=sistemas;sslmode=none"

@@ -36,4 +36,6 @@
 	En bitnami, vamos a la config de MySql y comentamos la linea "# skip-name-resolve=1",
 	luego el string para conectar al server debe ser tal que:
 	"server = localhost;database=dbprueba;user=root;password=sistemas;sslmode=none"
+20180925
+	Añadido CCategoria final con updates y delete.
 
