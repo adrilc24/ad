@@ -16,13 +16,13 @@ namespace CCategoria
         }
 
 		public ulong Id {
-			get { return id};
-			set { id = value};
+			get { return id; }
+			set { id = value; }
 		}
 
 		public string Nombre {
-			get { return nombre};
-			set { nombre = value};
+			get { return nombre; }
+			set { nombre = value; }
 		}
     }
 }
