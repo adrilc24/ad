@@ -14,7 +14,7 @@ public partial class MainWindow : Gtk.Window
         Build();
 		new CategoriaWindow();
 
-		dbConnection = new MySqlConnection(
+		App.Instance.DbConnection = new MySqlConnection (
                 "server = localhost;database=dbprueba;user=root;password=sistemas;sslmode=none"
             );
         dbConnection.Open();

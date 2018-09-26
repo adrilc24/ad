@@ -12,7 +12,7 @@ namespace CCategoria
 
 		private global::Gtk.Table table3;
 
-		private global::Gtk.Entry entry1;
+		private global::Gtk.Entry entryNombre;
 
 		private global::Gtk.Label Label1;
 
@@ -43,13 +43,13 @@ namespace CCategoria
 			this.table3.RowSpacing = ((uint)(6));
 			this.table3.ColumnSpacing = ((uint)(6));
 			// Container child table3.Gtk.Table+TableChild
-			this.entry1 = new global::Gtk.Entry();
-			this.entry1.CanFocus = true;
-			this.entry1.Name = "entry1";
-			this.entry1.IsEditable = true;
-			this.entry1.InvisibleChar = '•';
-			this.table3.Add(this.entry1);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table3[this.entry1]));
+			this.entryNombre = new global::Gtk.Entry();
+			this.entryNombre.CanFocus = true;
+			this.entryNombre.Name = "entryNombre";
+			this.entryNombre.IsEditable = true;
+			this.entryNombre.InvisibleChar = '•';
+			this.table3.Add(this.entryNombre);
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table3[this.entryNombre]));
 			w2.LeftAttach = ((uint)(1));
 			w2.RightAttach = ((uint)(2));
 			w2.YOptions = ((global::Gtk.AttachOptions)(4));
@@ -94,6 +94,7 @@ namespace CCategoria
 			this.DefaultWidth = 491;
 			this.DefaultHeight = 76;
 			this.Show();
+			this.button1.Clicked += new global::System.EventHandler(this.OnButtonSaveClicked);
 		}
 	}
 }

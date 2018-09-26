@@ -8,5 +8,11 @@ namespace CCategoria
         {
             this.Build();
         }
-    }
+
+		protected void OnButtonSaveClicked(object sender, EventArgs e)
+		{
+			App.Instance.DbConnection;
+			Console.WriteLine("Nombre = " + entryNombre.Text);
+		}
+	}
 }
