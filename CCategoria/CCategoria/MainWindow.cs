@@ -3,8 +3,11 @@ using Gtk;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Data;
-using CCategoria;
 using System.Reflection;
+using CCategoria;
+using Serpis.Ad;
+
+
 
 public partial class MainWindow : Gtk.Window
 {
