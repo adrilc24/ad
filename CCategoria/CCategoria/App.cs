@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-
 namespace CCategoria
 {
     public class App
@@ -19,7 +18,7 @@ namespace CCategoria
 
 		public IDbConnection DbConnection {
 			get { return dbConnection;  }
-			set { return dbConnection = value; }
+			set { dbConnection = value; }
 		}
     }
 }

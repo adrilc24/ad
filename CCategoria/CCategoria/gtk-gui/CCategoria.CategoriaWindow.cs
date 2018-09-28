@@ -18,7 +18,7 @@ namespace CCategoria
 
 		private global::Gtk.HButtonBox hbuttonbox6;
 
-		private global::Gtk.Button button1;
+		private global::Gtk.Button buttonSave;
 
 		protected virtual void Build()
 		{
@@ -71,14 +71,14 @@ namespace CCategoria
 			this.hbuttonbox6.Name = "hbuttonbox6";
 			this.hbuttonbox6.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child hbuttonbox6.Gtk.ButtonBox+ButtonBoxChild
-			this.button1 = new global::Gtk.Button();
-			this.button1.CanFocus = true;
-			this.button1.Name = "button1";
-			this.button1.UseStock = true;
-			this.button1.UseUnderline = true;
-			this.button1.Label = "gtk-save";
-			this.hbuttonbox6.Add(this.button1);
-			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox6[this.button1]));
+			this.buttonSave = new global::Gtk.Button();
+			this.buttonSave.CanFocus = true;
+			this.buttonSave.Name = "buttonSave";
+			this.buttonSave.UseStock = true;
+			this.buttonSave.UseUnderline = true;
+			this.buttonSave.Label = "gtk-save";
+			this.hbuttonbox6.Add(this.buttonSave);
+			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox6[this.buttonSave]));
 			w5.Expand = false;
 			w5.Fill = false;
 			this.vbox4.Add(this.hbuttonbox6);
@@ -94,7 +94,6 @@ namespace CCategoria
 			this.DefaultWidth = 491;
 			this.DefaultHeight = 76;
 			this.Show();
-			this.button1.Clicked += new global::System.EventHandler(this.OnButtonSaveClicked);
 		}
 	}
 }

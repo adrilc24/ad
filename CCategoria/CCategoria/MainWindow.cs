@@ -1,23 +1,25 @@
 ﻿using System;
 using Gtk;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 using System.Data;
 using CCategoria;
-
 using System.Reflection;
 
 public partial class MainWindow : Gtk.Window
 {
-	private IDbConnection dbConnection;
     public MainWindow() : base(Gtk.WindowType.Toplevel)
     {
         Build();
-		new CategoriaWindow();
+
+
+
 
 		App.Instance.DbConnection = new MySqlConnection (
                 "server = localhost;database=dbprueba;user=root;password=sistemas;sslmode=none"
             );
-        dbConnection.Open();
+		new CategoriaWindow();
+        App.Instance.DbConnection.Open();
 		//insert();
 		//update();
 		update(new Categoria(3, "categoria 3 " + DateTime.Now));
@@ -46,34 +48,30 @@ public partial class MainWindow : Gtk.Window
 		treeview.Model = listStore;
         
 
-		IDbCommand dbCommand = dbConnection.CreateCommand();
+		IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
 		dbCommand.CommandText = "select id, nombre from categoria order by id";
 		IDataReader dataReader = dbCommand.ExecuteReader();
 		while (dataReader.Read())
 			listStore.AppendValues(new Categoria((ulong)dataReader["id"], (string)dataReader["nombre"]));
 		dataReader.Close();
-
-		dbConnection.Close();
-
-
     }
 
 	private void insert() {
-		IDbCommand dbCommand = dbConnection.CreateCommand();
+		IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
 		dbCommand.CommandText = "insert into categoria (nombre) values ('categoria 4')";
 		int filas = dbCommand.ExecuteNonQuery();
 	}
 
 	private void update()
     {
-        IDbCommand dbCommand = dbConnection.CreateCommand();
+		IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
         dbCommand.CommandText = "update categoria set nombre = 'categoria 4 cambiada modificada' where id = 4";
         dbCommand.ExecuteNonQuery();
     }
 
 	private void update(Categoria categoria)
     {
-        IDbCommand dbCommand = dbConnection.CreateCommand();
+		IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
 		dbCommand.CommandText = "update categoria set nombre =@nombre where id=@id";
 
 		IDbDataParameter dbDataParameterNombre= dbCommand.CreateParameter();
@@ -91,13 +89,14 @@ public partial class MainWindow : Gtk.Window
 
 	private void delete()
     {
-        IDbCommand dbCommand = dbConnection.CreateCommand();
+		IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
         dbCommand.CommandText = "delete from categoria where id = 4";
         dbCommand.ExecuteNonQuery();
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
     {
+		App.Instance.DbConnection.Close();
         Application.Quit();
         a.RetVal = true;
     }
