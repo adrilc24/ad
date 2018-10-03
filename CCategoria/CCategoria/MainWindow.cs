@@ -21,49 +21,51 @@ public partial class MainWindow : Gtk.Window
 		App.Instance.DbConnection = new MySqlConnection(
 				"server = localhost;database=dbprueba;user=root;password=sistemas;sslmode=none"
 			);
-		new CategoriaWindow();
+
 		App.Instance.DbConnection.Open();
-		//insert();
-		//update();
-		update(new Categoria(3, "categoria 3 " + DateTime.Now));
-		//delete();
+
 
 		TreeViewHelper.Fill(treeview, new string[] { "Id", "Nombre" }, CategoriaDao.Categorias);
 
-		//CellRendererText cellRendererText = new CellRendererText();
+		newAction.Activated += delegate {
+		    new CategoriaWindow();
+		};
 
 
-		//string[] properties = new string[] { "Id", "Nombre" };
-
-		//foreach (string property in properties)
-		//{
-		//	string propertyName = property;
-		//	treeview.AppendColumn(
-		//		property,
-		//		cellRendererText,
-		//		delegate (TreeViewColumn tree_column, CellRenderer cell, TreeModel tree_model, TreeIter iter)
-		//		{
-		//			object model = tree_model.GetValue(iter, 0);
-		//		object value = model.GetType().GetProperty(property).GetValue(model);
-		//			cellRendererText.Text = value + "";
-		//		}
-		//	);
-		//}
-
-		//ListStore listStore = new ListStore(typeof(Categoria));
-		//treeview.Model = listStore;
+		editAction.Activated += delegate {
+			treeview.Selection.GetSelected(out TreeIter treeIter);
+			Categoria categoria =(Categoria) treeview.Model.GetValue(treeIter, 0);
+			Console.WriteLine("Id = " + GetId(treeview));
+		};
 
 
-		////IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
-		////dbCommand.CommandText = "select id, nombre from categoria order by id";
-		////IDataReader dataReader = dbCommand.ExecuteReader();
-		////while (dataReader.Read())
-		////	listStore.AppendValues(new Categoria((ulong)dataReader["id"], (string)dataReader["nombre"]));
-		////dataReader.Close();
+		treeview.Selection.Changed += delegate {
+			refreshUI();
+		};
 
-		//foreach (Categoria categoria in CategoriaDao.Categorias)
-		//listStore.AppendValues(categoria);
-		}
+		refreshUI();
+      
+	}
+
+	public static object GetId(TreeView treeView){
+		return Get(treeView, "Id");
+	}
+
+	public static object Get(TreeView treeView, string propertyName){
+		if (!treeView.Selection.GetSelected(out TreeIter treeIter))
+			return null;
+		object model = treeView.Model.GetValue(treeIter, 0);
+		return model.GetType().GetProperty(propertyName).GetValue(model);
+	}
+
+
+	    private void refreshUI() {
+            bool treeViewIsSelected = treeview.Selection.CountSelectedRows() > 0;
+		    editAction.Sensitive = treeViewIsSelected;
+		    deleteAction.Sensitive = treeViewIsSelected;
+        }
+
+	    
 
 		private void insert()
 		{
@@ -83,19 +85,11 @@ public partial class MainWindow : Gtk.Window
 		{
 			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
 			dbCommand.CommandText = "update categoria set nombre =@nombre where id=@id";
-
-			//IDbDataParameter dbDataParameterNombre= dbCommand.CreateParameter();
-			//dbDataParameterNombre.ParameterName = "nombre";
-			//dbDataParameterNombre.Value = categoria.Nombre;
-			//dbCommand.Parameters.Add(dbDataParameterNombre);
+        
 
 			DbCommandHelper.AddParameter(dbCommand, "nombre", categoria.Nombre);
 			DbCommandHelper.AddParameter(dbCommand, "id", categoria.Id);
 
-			//IDbDataParameter dbDataParameterID = dbCommand.CreateParameter();
-			//dbDataParameterID.ParameterName = "id";
-			//dbDataParameterID.Value = categoria.Id;
-			//dbCommand.Parameters.Add(dbDataParameterID);
 
 			dbCommand.ExecuteNonQuery();
 		}
