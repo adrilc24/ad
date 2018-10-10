@@ -56,7 +56,7 @@ namespace CCategoria
 			// Container child table3.Gtk.Table+TableChild
 			this.Label1 = new global::Gtk.Label();
 			this.Label1.Name = "Label1";
-			this.Label1.LabelProp = global::Mono.Unix.Catalog.GetString("Nombre Cartegoría: ");
+			this.Label1.LabelProp = global::Mono.Unix.Catalog.GetString("Nombre Categoría: ");
 			this.table3.Add(this.Label1);
 			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table3[this.Label1]));
 			w3.XOptions = ((global::Gtk.AttachOptions)(4));

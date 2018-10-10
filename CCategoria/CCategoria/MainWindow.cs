@@ -28,14 +28,15 @@ public partial class MainWindow : Gtk.Window
 		TreeViewHelper.Fill(treeview, new string[] { "Id", "Nombre" }, CategoriaDao.Categorias);
 
 		newAction.Activated += delegate {
-		    new CategoriaWindow();
+			new CategoriaWindow(new Categoria());
 		};
 
 
 		editAction.Activated += delegate {
-			treeview.Selection.GetSelected(out TreeIter treeIter);
-			Categoria categoria =(Categoria) treeview.Model.GetValue(treeIter, 0);
-			Console.WriteLine("Id = " + GetId(treeview));
+			object id = GetId(treeview);
+			Console.WriteLine("Id = " + id);
+			Categoria categoria = CategoriaDao.Load(id);
+			new CategoriaWindow(categoria);
 		};
 
 
