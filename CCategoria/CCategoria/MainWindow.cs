@@ -29,7 +29,6 @@ public partial class MainWindow : Gtk.Window
         
 		editAction.Activated += delegate {
 			object id = TreeViewHelper.GetId(treeview);
-			Console.WriteLine("Id = " + id);
 			Categoria categoria = CategoriaDao.Load(id);
 			new CategoriaWindow(categoria);
 		};
@@ -37,9 +36,10 @@ public partial class MainWindow : Gtk.Window
 		deleteAction.Activated += delegate
 		{
 			object id = TreeViewHelper.GetId(treeview);
-            if (WindowHelper.Confirm())
-			    //TODO CategoriaDao.Delete(id);
-
+			if (WindowHelper.Confirm(this, "¿Deseas eliminar el registro?")) {
+				object Id = TreeViewHelper.GetId(treeview);
+				CategoriaDao.Delete(id);
+			}
 		};
 
 		refreshAction.Activated += delegate {

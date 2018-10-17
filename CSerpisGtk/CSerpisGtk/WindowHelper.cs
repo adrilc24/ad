@@ -3,10 +3,10 @@ using Gtk;
 namespace Serpis.Ad {
     public class WindowHelper
 {
-	public static bool Confirm(Window windowParent, string message)
+		public static bool Confirm(Window parentWindow, string message)
 	{
 		MessageDialog messageDialog = new MessageDialog(
-			windowParent,
+			parentWindow,
 			DialogFlags.Modal,
 			MessageType.Question,
 			ButtonsType.YesNo,
@@ -14,11 +14,11 @@ namespace Serpis.Ad {
 
 		);
 
-		messageDialog.Title = windowParent.Title;
+		messageDialog.Title = parentWindow.Title;
 		ResponseType response = (ResponseType)messageDialog.Run();
 		messageDialog.Destroy();
 
 		return response == ResponseType.Yes;
-	}
-}
+	    }
+    }
 }
