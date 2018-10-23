@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data;
-using Serpis.Ad;
+using Serpis.Ad.Ventas;
 namespace CCategoria
+
 {
     public partial class CategoriaWindow : Gtk.Window
     {
