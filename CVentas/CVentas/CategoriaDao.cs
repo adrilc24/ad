@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 namespace Serpis.Ad.Ventas
 {
+	
 	public class CategoriaDao
 	{
 		private static string selectAll = "select id, nombre from categoria order by id";
