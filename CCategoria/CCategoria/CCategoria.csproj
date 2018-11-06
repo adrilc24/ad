@@ -89,12 +89,9 @@
     <Reference Include="CVentas">
       <HintPath>..\..\CVentas\CVentas\bin\Debug\CVentas.dll</HintPath>
     </Reference>
-<<<<<<< HEAD
     <Reference Include="CVentas">
       <HintPath>..\..\CVentas\CVentas\bin\Debug\CVentas.dll</HintPath>
     </Reference>
-=======
->>>>>>> entityDao
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
