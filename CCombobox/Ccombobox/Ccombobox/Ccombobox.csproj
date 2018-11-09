@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{2E6F26B6-DF2B-418A-A94C-5E0FC6E86A50}</ProjectGuid>
+    <ProjectGuid>{F04E96B5-7E7D-48F3-9562-E81FDA7DB75F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CCategoria</RootNamespace>
-    <AssemblyName>CCategoria</AssemblyName>
+    <RootNamespace>Ccombobox</RootNamespace>
+    <AssemblyName>Ccombobox</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -52,49 +52,6 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Mono.Posix" />
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\mysql\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="CSerpis">
-      <HintPath>..\..\CSerpis\CSerpis\bin\Debug\CSerpis.dll</HintPath>
-    </Reference>
-    <Reference Include="CSerpisGtk">
-      <HintPath>..\..\CSerpisGtk\CSerpisGtk\bin\Debug\CSerpisGtk.dll</HintPath>
-    </Reference>
-    <Reference Include="CSerpisGtk">
-      <HintPath>..\..\CSerpisGtk\CSerpisGtk\bin\Debug\CSerpisGtk.dll</HintPath>
-    </Reference>
-    <Reference Include="CSerpisGtk">
-      <HintPath>..\..\CSerpisGtk\CSerpisGtk\bin\Debug\CSerpisGtk.dll</HintPath>
-    </Reference>
-    <Reference Include="CSerpisGtk">
-      <HintPath>..\..\CSerpisGtk\CSerpisGtk\bin\Debug\CSerpisGtk.dll</HintPath>
-    </Reference>
-    <Reference Include="CSerpisGtk">
-      <HintPath>..\..\CSerpisGtk\CSerpisGtk\bin\Debug\CSerpisGtk.dll</HintPath>
-    </Reference>
-    <Reference Include="CSerpisGtk">
-      <HintPath>..\..\CSerpisGtk\CSerpisGtk\bin\Debug\CSerpisGtk.dll</HintPath>
-    </Reference>
-    <Reference Include="CVentas">
-      <HintPath>..\..\CVentas\CVentas\bin\Debug\CVentas.dll</HintPath>
-    </Reference>
-    <Reference Include="CVentas">
-      <HintPath>..\..\CVentas\CVentas\bin\Debug\CVentas.dll</HintPath>
-    </Reference>
-    <Reference Include="CVentas">
-      <HintPath>..\..\CVentas\CVentas\bin\Debug\CVentas.dll</HintPath>
-    </Reference>
-    <Reference Include="CVentas">
-      <HintPath>..\..\CVentas\CVentas\bin\Debug\CVentas.dll</HintPath>
-    </Reference>
-    <Reference Include="CVentas">
-      <HintPath>..\..\CVentas\CVentas\bin\Debug\CVentas.dll</HintPath>
-    </Reference>
-    <Reference Include="CVentas">
-      <HintPath>..\..\CVentas\CVentas\bin\Debug\CVentas.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -107,8 +64,6 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CategoriaWindow.cs" />
-    <Compile Include="gtk-gui\CCategoria.CategoriaWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

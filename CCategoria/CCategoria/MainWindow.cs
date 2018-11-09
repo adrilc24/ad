@@ -31,7 +31,9 @@ public partial class MainWindow : Gtk.Window
 		TreeViewHelper.Fill(treeview, new string[] { "Id", "Nombre" }, entityDaoCategoria.Enumerable);
 
 		newAction.Activated += delegate {
-			new CategoriaWindow(new Categoria());
+			object id = TreeViewHelper.GetId(treeview);
+			Articulo articulo = articuloDao.Load(id);
+			new ArticuloWindow(articulo);
 		};
 
         
@@ -46,12 +48,12 @@ public partial class MainWindow : Gtk.Window
 			object id = TreeViewHelper.GetId(treeview);
 			if (WindowHelper.Confirm(this, "¿Deseas eliminar el registro?")) {
 				object Id = TreeViewHelper.GetId(treeview);
-				CategoriaDao.Delete(id);
+				articuloDao.Delete(id);
 			}
 		};
 
 		refreshAction.Activated += delegate {
-			TreeViewHelper.Fill(treeview, new string[] { "Id", "Nombre" }, CategoriaDao.Categorias);
+			TreeViewHelper.Fill(treeview, new string[] { "Id", "Nombre", "Precio", "Categoria" });
 		};
 
 

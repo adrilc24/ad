@@ -1,10 +1,15 @@
 ﻿using System;
+using Serpis.Ad.Ventas;
 namespace CArticulo
 {
-    public class ArticuloWindow
-    {
-        public ArticuloWindow()
-        {
-        }
-    }
+	public partial class ArticuloWindow : Gtk.Window
+	{
+		public ArticuloWindow() :
+				base(Gtk.WindowType.Toplevel)
+		{
+			public ArticuloWindow(Articulo articulo) : base(Gtk.WindowType.Toplevel) {
+				this.Build();
+			}
+		}
+	}
 }
