@@ -76,18 +76,36 @@ namespace Serpis.Ad
 				update(entity);
 		}
 
-		public void Delete(object id) {
-			//TODO Implementar
-		}
-
-		public void insert(TEntity entity)
+		protected static string deleteSql = "delete from {0} where {1}=@id ";
+        public void Delete(object id)
         {
-            //TODO Implementar
+            string tableName = entityType.Name.ToLower();
+            IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
+            dbCommand.CommandText = string.Format(deleteSql, tableName, idPropertyName.ToLower());
+            DbCommandHelper.AddParameter(dbCommand, "id", id);
+            dbCommand.ExecuteNonQuery();
         }
 
-		public void update(TEntity entity)
+
+		protected static string updateSql = "update {0} set {1} where {2}=@id";
+        protected void update(object entity)
         {
-            //TODO Implementar
+            List<string> fieldParametersPairs = new List<string>();
+            List<string> propertyNames = new List<string>(new string[] { "id", "Nombre", "Precio", "Categoria" });
+
+
+            for (int index = 1; index < propertyNames.Count; index++)
+            {
+                string item = propertyNames[index];
+                fieldParametersPairs.Add(item + "=@" + item);
+
+            }
+            string tableName = entityType.Name.ToLower();
+            string FieldNamesCsv = string.Join(", ", fieldParametersPairs).ToLower();
+            string updateSql = string.Format("update {0} set {1} where {2}=@id", FieldNamesCsv, tableName, propertyNames);
+            IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
+            dbCommand.CommandText = updateSql;
+            IDataReader dataReader = dbCommand.ExecuteReader();
         }
 
     }
