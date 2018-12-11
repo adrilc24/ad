@@ -17,6 +17,8 @@ public class CategoriaMain {
 		.add("1 - Nuevo", CategoriaMain::nuevo)
 		.add("2 - Editar", CategoriaMain::editar)
 		.add("3 - Eliminar", CategoriaMain::eliminar)
+		.add("4 - Consultar", CategoriaMain::consultar)
+		.add("5 - Listar", CategoriaMain::listar)
 		.loop();		
 		App.getInstance().getConnection().close();
 }	
@@ -59,7 +61,7 @@ public class CategoriaMain {
 			}
 	}
 	
-	public void consultar() {
+	public static void consultar() {
 		long id = CategoriaConsole.getId();
 		Categoria categoria;
 		try {
@@ -75,7 +77,7 @@ public class CategoriaMain {
 
 	}
 	
-	public static void Listar() {
+	public static void listar() {
 		List<Categoria> categorias;
 		try {
 			categorias = CategoriaDao.getAll();
