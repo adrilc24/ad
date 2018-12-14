@@ -1,17 +1,21 @@
 package serpis.ad;
 
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.math.BigInteger;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
+import java.time.*;
 import com.mysql.cj.jdbc.result.UpdatableResultSet;
+import com.mysql.*;
 
 public class CategoriaDao {
-	private static String insertSql = "insert into categoria (nombre) values ()?";
-	private static String updateSql = "update categoria set (nombre) where (id) = ()?";
-	private static String deleteSql = "delete from categoria where (id) = ()?";
-	private static String selectSql = "select * from categoria where (id) = ()?";
+	private static String insertSql = "insert into categoria (nombre) values (?)";
+	private static String updateSql = "update categoria set (nombre) where (id) = (?)";
+	private static String deleteSql = "delete * from categoria where id = (?)";
+	private static String selectAll = "select id, nombre from categoria";
+	private static String selectWhereId = "select id, nombre from categoria where id = ?";
 
 	private static int insert(Categoria categoria) throws SQLException {
 		PreparedStatement preparedStatement = App.getInstance().getConnection().prepareStatement(insertSql);
@@ -33,20 +37,35 @@ public class CategoriaDao {
 	}
 
 	public static Categoria load(long id) throws SQLException {
-		return null;
+		PreparedStatement preparedStatement = App.getInstance().getConnection().prepareStatement(selectWhereId);
+		preparedStatement.setObject(1, id);
+		if (id <= 0)
+			return null;
+		else
+			return (Categoria) preparedStatement.executeQuery();
 	}
 
-	public static int delete(long id) throws SQLException {
+	public static ResultSet delete(long id) throws SQLException {
 		PreparedStatement preparedStatement = App.getInstance().getConnection().prepareStatement(deleteSql);
-		return preparedStatement.executeUpdate();
+		preparedStatement.setObject(1, id);
+		if (id <= 0)
+			return null;
+		else
+			return (ResultSet) preparedStatement.executeQuery();
 	}
 
 	public static List<Categoria> getAll() throws SQLException {
 		List<Categoria> categorias = new ArrayList<>();
-		Categoria categoria = new Categoria();
-		categoria.setId(1);
-		categoria.setNombre("Categoria 1");
-		categorias.add(categoria);
+		Statement statement = App.getInstance().getConnection().createStatement();
+		ResultSet resultSet = statement.executeQuery(selectAll);
+		while (resultSet.next()) {
+			Categoria categoria = new Categoria();
+			//categoria.setId( ((BigInteger) resultSet.getObject("id")).longValue() );
+			categoria.setId( resultSet.getLong("id"));
+			categoria.setNombre((String) resultSet.getObject("nombre"));
+			categorias.add(categoria);
+		}
+		statement.close();
 		return categorias;
 	}
 }
