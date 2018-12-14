@@ -4,7 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.math.BigInteger;
 import java.sql.*;
-import java.util.ArrayList;import org.apache.commons.math3.distribution.GeometricDistribution;
+import java.util.ArrayList;
+import org.apache.commons.math3.distribution.GeometricDistribution;
 
 import java.util.*;
 import java.time.*;
@@ -43,12 +44,16 @@ public class CategoriaDao {
 	}
 
 	public static Categoria load(long id) throws SQLException {
-		PreparedStatement preparedStatement = App.getInstance().getConnection().prepareStatement(selectWhereId);
-		preparedStatement.setObject(1, id);
-		if (id <= 0)
-			return null;
-		else
-			return (Categoria) preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = App.getInstance().getConnection().prepareStatement(selectWhereId)) {
+			preparedStatement.setObject(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (!resultSet.next())
+				return null;
+			Categoria categoria = new Categoria();
+			categoria.setId(resultSet.getLong("id"));
+			categoria.setNombre((String) resultSet.getObject("nombre"));
+			return categoria;
+		}
 	}
 
 	public static int delete(long id) throws SQLException {
@@ -64,8 +69,8 @@ public class CategoriaDao {
 		ResultSet resultSet = statement.executeQuery(selectAll);
 		while (resultSet.next()) {
 			Categoria categoria = new Categoria();
-			//categoria.setId( ((BigInteger) resultSet.getObject("id")).longValue() );
-			categoria.setId( resultSet.getLong("id"));
+			// categoria.setId( ((BigInteger) resultSet.getObject("id")).longValue() );
+			categoria.setId(resultSet.getLong("id"));
 			categoria.setNombre((String) resultSet.getObject("nombre"));
 			categorias.add(categoria);
 		}
