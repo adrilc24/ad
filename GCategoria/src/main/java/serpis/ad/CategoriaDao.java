@@ -51,13 +51,11 @@ public class CategoriaDao {
 			return (Categoria) preparedStatement.executeQuery();
 	}
 
-	public static ResultSet delete(long id) throws SQLException {
-		PreparedStatement preparedStatement = App.getInstance().getConnection().prepareStatement(deleteSql);
-		preparedStatement.setObject(1, id);
-		if (id <= 0)
-			return null;
-		else
-			return (ResultSet) preparedStatement.executeQuery();
+	public static int delete(long id) throws SQLException {
+		try (PreparedStatement preparedStatement = App.getInstance().getConnection().prepareStatement(deleteSql)) {
+			preparedStatement.setObject(1, id);
+			return preparedStatement.executeUpdate();
+		}
 	}
 
 	public static List<Categoria> getAll() throws SQLException {
