@@ -13,9 +13,9 @@ import com.mysql.cj.jdbc.result.UpdatableResultSet;
 import com.mysql.*;
 
 public class CategoriaDao {
-	private static String insertSql = "insert into categoria nombre values ?";
+	private static String insertSql = "insert into categoria (nombre) values (?)";
 	private static String updateSql = "update categoria set nombre=? where id = ?";
-	private static String deleteSql = "delete * from categoria where id = (?)";
+	private static String deleteSql = "delete from categoria where id = ?";
 	private static String selectAll = "select id, nombre from categoria";
 	private static String selectWhereId = "select id, nombre from categoria where id = ?";
 

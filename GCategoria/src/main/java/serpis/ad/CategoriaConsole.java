@@ -3,35 +3,40 @@ package serpis.ad;
 import java.util.*;
 
 public class CategoriaConsole {
+	private static Scanner scanner = new Scanner(System.in);
+	
 	
 	public static long getId() {
-		Categoria categoria = new Categoria();
-		long id;
-		id = categoria.getId();
-		return id;
+		return ScannerHelper.getInt("Id: ");
 	}
 	
 	public static void newCategoria(Categoria categoria) {
-		
+		System.out.print("Nombre: ");
+		String nombre = scanner.nextLine();
+		categoria.setNombre(nombre);
 	}
 	
 	public static void editCategoria(Categoria categoria) {
-		
+		show(categoria);
+		System.out.print("Nombre: ");
+		String nombre = scanner.nextLine();
+		categoria.setNombre(nombre);
 	}
 	
-	public static void idNotExists() {
-		Categoria categoria = new Categoria();
-		if (categoria == null)
-			System.out.println("La categoria no existe");
+	public static void showIdNotExists() {
+		System.out.println("La categoria no existe");
 	}
 	
 	public static boolean deleteConfirm() {
-		String res = "N";
+		System.out.print("¿Desea eliminar el registro (S/N) ? ");
+		String res = scanner.nextLine();
 		return res.equalsIgnoreCase("S");
 	}
 	
 	public static void show(Categoria categoria) {
-		System.out.printf("%s %s\n", categoria.getId(), categoria.getNombre());
+
+		System.out.printf("   Id: %s || Nombre: %s\n", categoria.getId(), categoria.getNombre());
+		System.out.println("");
 	}
 	
 	public static void showList(List<Categoria> categorias) {

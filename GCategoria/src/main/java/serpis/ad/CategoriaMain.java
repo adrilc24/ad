@@ -39,7 +39,7 @@ public class CategoriaMain {
 		try {
 			categoria = CategoriaDao.load(id);
 			if (categoria == null) {
-				CategoriaConsole.idNotExists();
+				CategoriaConsole.showIdNotExists();
 				return;
 			}
 			CategoriaConsole.editCategoria(categoria);
@@ -67,7 +67,7 @@ public class CategoriaMain {
 		try {
 			categoria = CategoriaDao.load(id);
 			if (categoria == null) {
-				CategoriaConsole.idNotExists();
+				CategoriaConsole.showIdNotExists();
 				return;
 			}
 			CategoriaConsole.show(categoria);
@@ -80,8 +80,10 @@ public class CategoriaMain {
 	public static void listar() {
 		List<Categoria> categorias;
 		try {
+			System.out.println("");
 			categorias = CategoriaDao.getAll();
 			CategoriaConsole.showList(categorias);
+			System.out.println("");
 		} catch (SQLException e) {
 			System.out.println("Error al obtener lista");
 		}
