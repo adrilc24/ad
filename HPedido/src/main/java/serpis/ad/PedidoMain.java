@@ -24,7 +24,10 @@ public class PedidoMain {
 		entityManager.getTransaction().begin();
 		
 		
-		List <Categoria> categorias = entityManager.createQuery("select c from Categoria c", Categoria.class).getResultList();
+		List <Categoria> categorias = doInJPA(entityManagerFactory, entityManager -> {
+			return entityManager.createQuery("select c from Categoria c", Categoria.class).getResultList();
+		});
+				
 		
 		Articulo articulo = newArticulo();
 		articulo.setCategoria(categorias.get(new Random().nextInt(categorias.size())));
