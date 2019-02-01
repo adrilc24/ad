@@ -14,9 +14,6 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Pedido {
 
-
-	
-	//@JoinColumn(name = "pedido", foreignKey = @ForeignKey(name = ""))
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

@@ -29,5 +29,7 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.13'
     
     implementation 'org.hibernate:hibernate-core:5.4.0.Final'
+    
+    implementation files('../HSerpis/build/libs/HSerpis.jar')
 }
 

@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 @Entity (name = "pedidolinea")
 public class PedidoLinea {
 	
-	
 	@Id
 	@GeneratedValue
 	private Long id;

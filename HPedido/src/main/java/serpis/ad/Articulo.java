@@ -21,11 +21,6 @@ public class Articulo {
 	private Categoria categoria;
 	private BigDecimal precio;
 	
-	public Articulo() {
-		this.nombre = nombre;
-		this.id = id;
-	}
-	
 
 	public Categoria getCategoria() {
 		return categoria;
