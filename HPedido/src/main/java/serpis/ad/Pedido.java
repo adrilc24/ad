@@ -19,7 +19,8 @@ public class Pedido {
 	private long id;
 	private String nombre;
 	private Date date;
-	private int cliente, num;
+	private int num;
+	private int cliente;
 	
 	public String getNombre() {
 		return nombre;
