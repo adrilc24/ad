@@ -2,6 +2,8 @@ package serpis.ad;
 
 import java.sql.Connection;
 
+import javax.persistence.EntityManagerFactory;
+
 public class App {
 	private static App instance = new App();
 	
@@ -21,5 +23,9 @@ public class App {
 
 	public void setConnection(Connection connection) {
 		this.connection = connection;
+	}
+	
+	public EntityManagerFactory getEntityManagerFactory() {
+		return null;
 	}
 }
