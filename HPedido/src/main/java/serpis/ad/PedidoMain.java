@@ -13,28 +13,44 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.cfg.JPAIndexHolder;
+
 public class PedidoMain {
 	
 	private static EntityManagerFactory entityManagerFactory;
 
 	public static void main(String[] args) {
-		entityManagerFactory = Persistence.createEntityManagerFactory("serpis.ad.hpedido");
+		//entityManagerFactory = Persistence.createEntityManagerFactory("serpis.ad.hpedido");
 		
 //		EntityManager entityManager = entityManagerFactory.createEntityManager();
 //		entityManager.getTransaction().begin();
 //		
-		
-		List <Categoria> categorias = doInJPA(entityManagerFactory, entityManager -> {
-			return entityManager.createQuery("select c from Categoria c", Categoria.class).getResultList();
+		List <Categoria> categorias = JpaHelper.execute(entityManager -> {
+			return entityManager.createQuery("select c from Cartegoria c order by id", Categoria.class).getResultList();
 		});
+		
+
+//		for (Categoria categoria : categorias)
+//			System.out.printf("%4s %s %n", categoria.getId(), categoria.getNombre());
+				
+		JpaHelper.execute(entityManager -> {
+			Articulo articulo = new Articulo();
+			articulo.setNombre("nuevo "+LocalDateTime.now());
+			articulo.setPrecio(new BigDecimal(1.5));
+			entityManager.persist(articulo);
+		});
+		
+//		List <Categoria> categorias = doInJPA(entityManagerFactory, entityManager -> {
+//			return entityManager.createQuery("select c from Categoria c", Categoria.class).getResultList();
+//		});
 				
 		
-		Articulo articulo = newArticulo();
-		articulo.setCategoria(categorias.get(new Random().nextInt(categorias.size())));
-		
-		Cliente cliente = newCliente();
-		cliente.setNombre("Paquito");
-		cliente.setId((long) 4);
+//		Articulo articulo = newArticulo();
+//		articulo.setCategoria(categorias.get(new Random().nextInt(categorias.size())));
+//		
+//		Cliente cliente = newCliente();
+//		cliente.setNombre("Paquito");
+//		cliente.setId((long) 4);
 		
 		
 		
@@ -47,9 +63,9 @@ public class PedidoMain {
 //		entityManager.persist(cliente);
 		
 		//Articulo articulo = entityManager.find(Articulo.class, 1L);
-		showArticulo(articulo);
-		showCliente(cliente);
-//		
+//		showArticulo(articulo);
+//		showCliente(cliente);
+////		
 //		entityManager.getTransaction().commit();
 //		entityManager.close();
 //		
@@ -63,17 +79,19 @@ public class PedidoMain {
 //		});
 		
 		
-		Articulo articulo3 = doInJPA(entityManagerFactory, entityManager2 -> {
-			return entityManager2.find(Articulo.class, 3L);
+		
+		
+		Articulo articulo = JpaHelper.execute(entityManager  -> {
+			return entityManager.find(Articulo.class, 13L);
 		});
-		showArticulo(articulo3);
+		showArticulo(articulo);
 		//entityManagerFactory.close();
 		
-		Cliente cliente4 = doInJPA(entityManagerFactory, entityManager4 -> {
-			return entityManager4.find(Cliente.class, 3L);
-		});
-		showCliente(cliente4);
-		entityManagerFactory.close();
+//		Cliente cliente4 = doInJPA(entityManagerFactory, entityManager4 -> {
+//			return entityManager4.find(Cliente.class, 3L);
+//		});
+//		showCliente(cliente4);
+//		entityManagerFactory.close();
 		
 		
 		
@@ -118,22 +136,22 @@ public class PedidoMain {
 		
 	}
 	
-	private static void doInJPA(EntityManagerFactory entityManagerFactory, Consumer<EntityManager> consumer) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		consumer.accept(entityManager);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-	}
-	
-	private static <R> R doInJPA(EntityManagerFactory entityManagerFactory, Function<EntityManager, R> function) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		
-		R result = function.apply(entityManager);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		return result;
-	}
+//	private static void doInJPA(EntityManagerFactory entityManagerFactory, Consumer<EntityManager> consumer) {
+//		EntityManager entityManager = entityManagerFactory.createEntityManager();
+//		entityManager.getTransaction().begin();
+//		consumer.accept(entityManager);
+//		entityManager.getTransaction().commit();
+//		entityManager.close();
+//	}
+//	
+//	private static <R> R doInJPA(EntityManagerFactory entityManagerFactory, Function<EntityManager, R> function) {
+//		EntityManager entityManager = entityManagerFactory.createEntityManager();
+//		entityManager.getTransaction().begin();
+//		
+//		R result = function.apply(entityManager);
+//		
+//		entityManager.getTransaction().commit();
+//		entityManager.close();
+//		return result;
+//	}
 }
