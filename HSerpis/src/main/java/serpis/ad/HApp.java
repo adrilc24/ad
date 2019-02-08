@@ -4,14 +4,14 @@ import java.sql.Connection;
 
 import javax.persistence.EntityManagerFactory;
 
-public class App {
-	private static App instance = new App();
+public class HApp {
+	private static HApp instance = new HApp();
 	
-	private App() {
+	private HApp() {
 		
 	}
 	
-	public static App getInstance() {
+	public static HApp getInstance() {
 		return instance;
 	}
 	

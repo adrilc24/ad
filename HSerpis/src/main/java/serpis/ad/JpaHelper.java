@@ -6,6 +6,8 @@ import java.util.function.Function;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import org.hibernate.engine.spi.ExecuteUpdateResultCheckStyle;
+
 public class JpaHelper {
 	
 	private static void execute(EntityManagerFactory entityManagerFactory, Consumer<EntityManager> consumer) {
@@ -17,18 +19,15 @@ public class JpaHelper {
 	}
 	
 	public static void execute(Consumer<EntityManager> consumer) {
-		execute(App.getInstance().getEntityManagerFactory(), consumer);
+		 execute(HApp.getInstance().getEntityManagerFactory(), consumer);
 	}
 	
-//	public static <R> R execute(EntityManagerFactory entityManagerFactory, Function<EntityManager, R> function) {
-//		EntityManager entityManager = entityManagerFactory.createEntityManager();
-//		entityManager.getTransaction().begin();
-//		
-//		R result = function.apply(entityManager);
-//		
-//		entityManager.getTransaction().commit();
-//		entityManager.close();
-//		return result;
-//	}
+	public static <R> R execute(Function<EntityManager, R> function) {
+		return execute(HApp.getInstance().getEntityManagerFactory(), function);
+	}
+	
+	public static <R> R execute(EntityManagerFactory entityManagerFactory, Function<EntityManager, R> function) {
+		return null;
+	}
 
 }
