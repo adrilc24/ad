@@ -1,6 +1,7 @@
 package serpis.ad;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,19 +21,23 @@ public class PedidoMain {
 	private static EntityManagerFactory entityManagerFactory;
 
 	public static void main(String[] args) {
-		//entityManagerFactory = Persistence.createEntityManagerFactory("serpis.ad.hpedido");
-		
-//		EntityManager entityManager = entityManagerFactory.createEntityManager();
-//		entityManager.getTransaction().begin();
-//		
+			
 		List <Categoria> categorias = JpaHelper.execute(entityManager -> {
 			return entityManager.createQuery("select c from Cartegoria c order by id", Categoria.class).getResultList();
 		});
 		
+		List<Cliente> clientes=JpaHelper.execute(entityManager -> {
+			return	entityManager.createQuery("select cl from Cliente cl", Cliente.class).getResultList();
+		});
+		List<Pedido> pedidos=JpaHelper.execute(entityManager -> {
+			return	entityManager.createQuery("select p from Pedido p", Pedido.class).getResultList();
+		});
+		List<Articulo> articulos=JpaHelper.execute(entityManager -> {
+			return	entityManager.createQuery("select a from Articulo a", Articulo.class).getResultList();
+		});
 
-//		for (Categoria categoria : categorias)
-//			System.out.printf("%4s %s %n", categoria.getId(), categoria.getNombre());
-				
+
+			
 		JpaHelper.execute(entityManager -> {
 			Articulo articulo = new Articulo();
 			articulo.setNombre("nuevo "+LocalDateTime.now());
@@ -40,59 +45,38 @@ public class PedidoMain {
 			entityManager.persist(articulo);
 		});
 		
-//		List <Categoria> categorias = doInJPA(entityManagerFactory, entityManager -> {
-//			return entityManager.createQuery("select c from Categoria c", Categoria.class).getResultList();
+		JpaHelper.execute(entityManager -> {
+			Pedido pedido= new Pedido();
+			pedido.setDate(new Date(5));
+			pedido.setNum(5);;
+		});
+		
+		JpaHelper.execute(entityManager -> {
+			PedidoLinea pedidoLinea=new PedidoLinea();
+			pedidoLinea.setPrecio(20);
+			pedidoLinea.setUnidades(3);
+			pedidoLinea.setImporte(14);
+		});
+		
+//		JpaHelper.execute(entityManager -> {
+//			Cliente cliente=new Cliente();
+//			cliente.setNombre("Manolo");
 //		});
-				
 		
-//		Articulo articulo = newArticulo();
-//		articulo.setCategoria(categorias.get(new Random().nextInt(categorias.size())));
-//		
-//		Cliente cliente = newCliente();
-//		cliente.setNombre("Paquito");
-//		cliente.setId((long) 4);
-		
-		
-		
-//		Categoria categoria1 = new Categoria();
-//		categoria1.setNombre("cambiado "+ LocalDateTime.now());
-		
-//		articulo.setCategoria(entityManager.getReference(Categoria.class, 1L));
-		
-//		entityManager.persist(articulo);
-//		entityManager.persist(cliente);
-		
-		//Articulo articulo = entityManager.find(Articulo.class, 1L);
-//		showArticulo(articulo);
-//		showCliente(cliente);
-////		
-//		entityManager.getTransaction().commit();
-//		entityManager.close();
-//		
+
+	
 		System.out.println("Añadido articulo. Pulsa enter para seguir...");
 		new Scanner(System.in).nextLine();
 		
-		//remove(articulo);
-//		doInJPA(entityManagerFactory, entityManager2 -> {
-//			Articulo articulo2 = entityManager2.getReference(Articulo.class, articulo.getId());
-//			entityManager2.remove(articulo2);
-//		});
-		
-		
+	
 		
 		
 		Articulo articulo = JpaHelper.execute(entityManager  -> {
 			return entityManager.find(Articulo.class, 13L);
 		});
 		showArticulo(articulo);
-		//entityManagerFactory.close();
 		
-//		Cliente cliente4 = doInJPA(entityManagerFactory, entityManager4 -> {
-//			return entityManager4.find(Cliente.class, 3L);
-//		});
-//		showCliente(cliente4);
-//		entityManagerFactory.close();
-		
+	
 		
 		
 		
@@ -122,12 +106,21 @@ public class PedidoMain {
 				cliente.getId(), cliente.getNombre());
 	}
 	
+	private static void showPedido(Pedido pedido) {
+		System.out.printf("%4s %-30s %30s %s %n", 
+				pedido.getDate(), pedido.getNum());
+	}
+	
+	private static void showPedidoLinea(PedidoLinea pedidoLinea) {
+		System.out.printf("%4s %-30s %30s %s %n", 
+				pedidoLinea.getPrecio(), pedidoLinea.getUnidades(), pedidoLinea.getImporte());
+	}
+	
 	
 	private static void remove (Articulo articulo) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
-		//articulo = entityManager.find(Articulo.class, articulo.getId());
 		articulo = entityManager.getReference(Articulo.class, articulo.getId());
 		entityManager.remove(articulo);
 		
@@ -136,22 +129,24 @@ public class PedidoMain {
 		
 	}
 	
-//	private static void doInJPA(EntityManagerFactory entityManagerFactory, Consumer<EntityManager> consumer) {
-//		EntityManager entityManager = entityManagerFactory.createEntityManager();
-//		entityManager.getTransaction().begin();
-//		consumer.accept(entityManager);
-//		entityManager.getTransaction().commit();
-//		entityManager.close();
-//	}
-//	
-//	private static <R> R doInJPA(EntityManagerFactory entityManagerFactory, Function<EntityManager, R> function) {
-//		EntityManager entityManager = entityManagerFactory.createEntityManager();
-//		entityManager.getTransaction().begin();
-//		
-//		R result = function.apply(entityManager);
-//		
-//		entityManager.getTransaction().commit();
-//		entityManager.close();
-//		return result;
-//	}
+	
+	public static void tryCatchFinally() {
+		Object item=null;
+		EntityManager entityManager=null;
+		entityManager = HApp.getInstance().getEntityManagerFactory().createEntityManager();
+		entityManager.getTransaction().begin();
+		try {
+		
+		entityManager.persist(item);
+		entityManager.getTransaction().commit();
+		}catch(Exception e) {
+			entityManager.getTransaction().rollback();
+			throw e;
+		}
+		finally {
+			entityManager.close();
+		}
+		
+	}
+	
 }
