@@ -38,7 +38,7 @@ create table pedido (
 	importe numeric (10,2) not null
 );
 
-alter table pedido add foeign key (cliente) references cliente (id);
+alter table pedido add foreign key (cliente) references cliente (id);
 
 create table pedidolinea (
 	id serial primary key,
