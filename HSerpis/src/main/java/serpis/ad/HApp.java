@@ -6,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 
 public class HApp {
 	private static HApp instance = new HApp();
+	private  EntityManagerFactory entityManagerFactory;
 	
 	private HApp() {
 		
@@ -17,15 +18,11 @@ public class HApp {
 	
 	private Connection connection;
 	
-	public Connection getConnection() {
-		return connection;
-	}
-
-	public void setConnection(Connection connection) {
-		this.connection = connection;
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
 	}
 	
-	public EntityManagerFactory getEntityManagerFactory() {
-		return null;
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
 	}
 }
