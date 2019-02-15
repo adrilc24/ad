@@ -13,6 +13,7 @@ import java.util.function.Function;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 
 import org.hibernate.cfg.JPAIndexHolder;
 
@@ -22,6 +23,21 @@ public class PedidoMain {
 
 	public static void main(String[] args) {
 			
+		try {
+			execute();
+		} catch (PersistenceException ex) {
+			//TODO PersistenceExceptionHelper.show(ex);
+			throw ex;
+		}
+		
+	
+		
+		
+		
+	}
+	
+	
+	private static void execute() {
 		List <Categoria> categorias = JpaHelper.execute(entityManager -> {
 			return entityManager.createQuery("select c from Cartegoria c order by id", Categoria.class).getResultList();
 		});
@@ -76,11 +92,8 @@ public class PedidoMain {
 		});
 		showArticulo(articulo);
 		
-	
-		
-		
-		
 	}
+	
 	
 	public static Articulo newArticulo() {
 		Articulo articulo = new Articulo();
