@@ -18,8 +18,7 @@ public class ScannerHelper {
 			}
 		}
 	}
-	
-	
+		
 	public static BigDecimal getBigDecimal(String label) {
 		while(true) {
 			System.out.print(label);
